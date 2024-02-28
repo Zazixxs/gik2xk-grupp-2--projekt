@@ -26,15 +26,16 @@ var server = http.createServer(app);
  */
 
 
-const { sequelize } = require("../models/");
-sequelize.sync({ force: true })
-  .then(() => {
-    console.log('Database synced!');
-    // Starta din server här
-  })
-  .catch((error) => {
-    console.error('Error syncing database:', error);
+const db = require("../models/"); // Ändra till rätt sökväg till dina modeller
+db.sequelize.sync()
+.then(()=>{
+  server.listen(port, () => {
+    console.log(`Server running on localhost:${port}`);
   });
+})
+.catch((e) => {
+  console.log(e)
+});
 
 
 
